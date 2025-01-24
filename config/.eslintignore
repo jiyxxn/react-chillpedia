@@ -1,0 +1,11 @@
+# 빌드된 파일은 무시
+/dist
+/build
+*.min.js
+
+# 테스트 파일도 무시
+/tests
+*.test.js
+
+# node_modules 폴더는 항상 무시
+/node_modules

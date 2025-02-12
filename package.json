@@ -12,6 +12,7 @@
     "_comment": "코드 검사 npm run lint, 코드 스타일 적용 npm rum format"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.48.1",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
     "react": "^18.3.1",

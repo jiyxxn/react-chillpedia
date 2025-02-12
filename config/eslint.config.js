@@ -37,7 +37,11 @@ export default [
       ], // React Fast Refresh 관련: 컴포넌트만 export하도록 경고
       'no-unused-vars': 'off', // 미사용 변수 경고 비활성화
       'react/prop-types': 'off', // PropTypes 사용 강제 비활성화
-      'prettier/prettier': 'error', // Prettier 규칙 위반 시 에러 처리
+      'prettier/prettier': [
+        {
+          endOfLine: 'auto',
+        },
+      ],
       ...prettierConfig.rules, // Prettier 규칙 적용 (eslint-config-prettier)
     },
   },

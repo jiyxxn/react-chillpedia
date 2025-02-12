@@ -5,8 +5,16 @@
 
 body {
   font-family: 'Pretendard Variable', Pretendard, sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.4;
-  font-size: 16px;
-  letter-spacing: -0.008em;
+  font-size: 18px;
+  letter-spacing: -0.002em;
+}
+
+:root {
+  --color-black: #333;
+  --color-gray: #66666e;
+  --color-white: #faf6ea;
+  --color-beige: #efe1c6;
+  --color-green: #95b645;
 }

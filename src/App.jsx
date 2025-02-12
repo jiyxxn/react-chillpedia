@@ -1,13 +1,7 @@
-import react from 'react';
-
-import './App.css';
+import Router from './shared/router';
 
 function App() {
-  return (
-    <>
-      <div>7조</div>
-    </>
-  );
+  return <Router />;
 }
 
 export default App;

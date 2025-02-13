@@ -36,12 +36,9 @@ export default [
         { allowConstantExport: true },
       ], // React Fast Refresh 관련: 컴포넌트만 export하도록 경고
       'no-unused-vars': 'off', // 미사용 변수 경고 비활성화
+      'react/react-in-jsx-scope': 'off', // ✅ React 자동 임포트를 허용
+      'prettier/prettier': ['error', { singleQuote: true, endOfLine: 'auto' }],
       'react/prop-types': 'off', // PropTypes 사용 강제 비활성화
-      'prettier/prettier': [
-        {
-          endOfLine: 'auto',
-        },
-      ],
       ...prettierConfig.rules, // Prettier 규칙 적용 (eslint-config-prettier)
     },
   },

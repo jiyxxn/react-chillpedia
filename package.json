@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint ./config",
+    "lint": "eslint . --config ./config/eslint.config.js",
     "format": "prettier --write ./config",
     "_comment": "코드 검사 npm run lint, 코드 스타일 적용 npm rum format"
   },
@@ -30,7 +30,7 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
-    "prettier": "^3.4.2",
+    "prettier": "^3.5.0",
     "vite": "^6.0.5"
   }
 }

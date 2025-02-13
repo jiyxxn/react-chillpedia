@@ -10,3 +10,8 @@
 .github
 
 config
+
+vite.config.js
+package.json
+pnpm-lock.yaml
+README.md

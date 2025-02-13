@@ -151,7 +151,7 @@ const SignUpButton = styled.button`
   cursor: pointer;
   border: 1px solid #66666e;
   border-radius: 20px;
-  background-color: #dcdcdc;
+  background-color: #faf6ea;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 `;
 export default Login;

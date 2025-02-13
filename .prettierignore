@@ -6,3 +6,12 @@
 # 테스트 파일도 무시
 /tests
 *.test.js
+
+.github
+
+config
+
+vite.config.js
+package.json
+pnpm-lock.yaml
+README.md

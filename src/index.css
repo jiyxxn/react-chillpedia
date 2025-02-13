@@ -9,6 +9,7 @@ body {
   line-height: 1.4;
   font-size: 18px;
   letter-spacing: -0.002em;
+  color: var(--color-black);
 }
 
 :root {

@@ -7,9 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --config ./config/eslint.config.js",
-    "format": "prettier --write .",
-    "_comment": "코드 검사 pnpm run lint, 코드 스타일 적용 pnpm rum format"
+    "lint": "eslint . --config eslint.config.js",
+    "format": "prettier . -w --config ./config/.prettierrc",
+    "_comment": "코드 검사 pnpm run lint, 코드 스타일 적용 pnpm run format"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.48.1",

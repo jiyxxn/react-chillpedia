@@ -6,3 +6,7 @@
 # 테스트 파일도 무시
 /tests
 *.test.js
+
+.github
+
+config

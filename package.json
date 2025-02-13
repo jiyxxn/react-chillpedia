@@ -8,12 +8,11 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --config ./config/eslint.config.js",
-    "format": "prettier --write ./config",
+    "format": "prettier --write .",
     "_comment": "코드 검사 pnpm run lint, 코드 스타일 적용 pnpm rum format"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.48.1",
-    "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -26,6 +25,7 @@
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",

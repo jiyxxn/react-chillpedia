@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint . --config ./config/eslint.config.js",
     "format": "prettier --write ./config",
-    "_comment": "코드 검사 npm run lint, 코드 스타일 적용 npm rum format"
+    "_comment": "코드 검사 pnpm run lint, 코드 스타일 적용 pnpm rum format"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.48.1",

@@ -9,13 +9,17 @@ export const GlobalStyles = createGlobalStyle`
     --color-green: #95b645;
   }
 
-  body, button {
+  body, button, input {
     font-family: 'Pretendard Variable', Pretendard, sans-serif;
     font-weight: 400;
     line-height: 1.4;
     font-size: 16px;
     letter-spacing: -0.002em;
     color: var(--color-black);
+  }
+
+  button {
+    cursor: pointer;
   }
 
 `;

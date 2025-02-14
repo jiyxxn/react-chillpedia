@@ -26,8 +26,8 @@ const PostDetailCard = (post) => {
   }, [allUserProfiles, post.writer_id]);
 
   useEffect(() => {
+    // * 댓글 호출
     const fetchCommentsData = async () => {
-      // 댓글 데이터 불러오기
       const { data: commentsData, error } = await supabase
         .from('comments')
         .select('* , profiles(nickname, image)')
@@ -47,7 +47,7 @@ const PostDetailCard = (post) => {
 
   // * 댓글 추가
   const handleAddComment = async (commentInputValue) => {
-    const { data: insertedCommentsData, error } = await supabase
+    const { data: insertedCommentData, error } = await supabase
       .from('comments')
       .insert({
         comments: commentInputValue,
@@ -62,12 +62,12 @@ const PostDetailCard = (post) => {
       return;
     }
 
-    setComments([...comments, insertedCommentsData]);
+    setComments([...comments, insertedCommentData]);
   };
 
   // * 댓글 수정
   const handleUpdateComment = async (commentInputValue, commentId) => {
-    const { data: updatedComments, error } = await supabase
+    const { data: updatedComment, error } = await supabase
       .from('comments')
       .update({
         comments: commentInputValue,
@@ -84,7 +84,7 @@ const PostDetailCard = (post) => {
     // comments 상태에 update 사항 반영
     setComments((prevComments) =>
       prevComments.map((comment) =>
-        comment.id === commentId ? updatedComments : comment,
+        comment.id === commentId ? updatedComment : comment,
       ),
     );
   };
@@ -119,9 +119,8 @@ const PostDetailCard = (post) => {
               <span>{writer.nickname}</span>
             </div>
           )}
-
-          {/* <div className="btn-row"></div> */}
         </div>
+
         <StDetailBox>
           <div className="detail-left">
             <img src={post.image_url} alt="음식 이미지" />

@@ -9,7 +9,7 @@ const PostComment = ({
 }) => {
   const { isLogin, user } = useContext(UserLoginContext);
   const [commentInputValue, setCommentInputValue] = useState([]); // 댓글 입력 input
-  const [isUpdating, setIsUpdating] = useState({});
+  const [isCommentUpdating, setIsCommentUpdating] = useState({});
   const [commentUpdateValue, setCommentUpdateValue] = useState('');
 
   const onToggleUpdateComment = (e, commentId, comments) => {
@@ -17,14 +17,14 @@ const PostComment = ({
 
     // '수정' 버튼 클릭 시
     if (buttonType === 'modify') {
-      setIsUpdating((prev) => ({ ...prev, [commentId]: true }));
+      setIsCommentUpdating((prev) => ({ ...prev, [commentId]: true }));
       setCommentUpdateValue(comments); // 노출된 수정 input에 수정 전 텍스트 반영
       e.target.innerText = '완료';
       e.target.setAttribute('data-type', 'complete');
     } else if (buttonType === 'complete') {
       // '완료' 버튼 클릭 시
       handleUpdateComment(commentUpdateValue, commentId);
-      setIsUpdating((prev) => ({ ...prev, [commentId]: false }));
+      setIsCommentUpdating((prev) => ({ ...prev, [commentId]: false }));
       setCommentUpdateValue(''); // 수정이 완료되면 수정 input의 value 초기화
       e.target.innerText = '수정';
       e.target.setAttribute('data-type', 'modify');
@@ -37,7 +37,6 @@ const PostComment = ({
     isConfirmed ? handleDeleteComment(commentId) : false;
   };
 
-  console.log('commentUpdateValue =====>', commentUpdateValue);
   return (
     <>
       <h2>댓글</h2>
@@ -99,7 +98,7 @@ const PostComment = ({
                 </div>
               </div>
               <div className="commentBottomRow">
-                {isUpdating[comment.id] ? (
+                {isCommentUpdating[comment.id] ? (
                   <input
                     type="text"
                     value={commentUpdateValue}

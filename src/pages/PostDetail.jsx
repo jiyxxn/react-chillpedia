@@ -7,7 +7,6 @@ import styled from 'styled-components';
 const PostDetail = () => {
   const { id } = useParams();
   const [post, setPost] = useState(undefined);
-  const { user, setUsers } = useState({});
 
   useEffect(() => {
     const fetchData = async () => {

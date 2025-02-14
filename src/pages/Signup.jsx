@@ -1,17 +1,17 @@
-import React from "react";
-import { useState } from "react";
-import supabase from "../shared/supabaseClient";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import SignupForm from "../components/SignupForm";
+import React from 'react';
+import { useState } from 'react';
+import supabase from '../shared/supabaseClient';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import SignupForm from '../components/SignupForm';
 
 const Signup = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    nickname: "",
+    email: '',
+    password: '',
+    confirmPassword: '',
+    nickname: '',
   });
 
   // * state 객체의 set 핸들러
@@ -27,8 +27,8 @@ const Signup = () => {
   const userDataValidations = {
     // 이메일 유효성 검사
     email: (value) => {
-      if (!value.includes("@") || !value.includes(".")) {
-        return "이메일 형식이 올바르지 않습니다.";
+      if (!value.includes('@') || !value.includes('.')) {
+        return '이메일 형식이 올바르지 않습니다.';
       }
     },
 
@@ -36,14 +36,14 @@ const Signup = () => {
     password: (value) => {
       const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
       if (!passwordRegex.test(value)) {
-        return "비밀번호는 8자 이상의 문자와 숫자를 포함해야 합니다.";
+        return '비밀번호는 8자 이상의 문자와 숫자를 포함해야 합니다.';
       }
     },
 
     // 비밀번호 일치 여부 검사
     confirmPassword: (value, { password }) => {
       if (value !== password) {
-        return "비밀번호가 일치하지 않습니다.";
+        return '비밀번호가 일치하지 않습니다.';
       }
     },
 
@@ -52,20 +52,20 @@ const Signup = () => {
       // 형식 검사
       const nicknameRegex = /^[가-힣a-zA-Z0-9]{1,10}$/;
       if (!nicknameRegex.test(value)) {
-        return "닉네임은 10자리 이하의 영문, 한글, 숫자만 사용할 수 있습니다.";
+        return '닉네임은 10자리 이하의 영문, 한글, 숫자만 사용할 수 있습니다.';
       }
       // 중복 검사
       const { data, error } = await supabase
-        .from("profiles")
-        .select("nickname")
-        .eq("nickname", value)
+        .from('profiles')
+        .select('nickname')
+        .eq('nickname', value)
         .maybeSingle();
 
       if (error) {
-        return "알 수 없는 에러입니다.";
+        return '알 수 없는 에러입니다.';
       }
       if (data) {
-        return "이미 사용 중인 닉네임입니다.";
+        return '이미 사용 중인 닉네임입니다.';
       }
     },
   };
@@ -98,18 +98,18 @@ const Signup = () => {
       // supabase 인증 관련 에러
       if (error) {
         switch (error.code) {
-          case "user_already_exists":
-            alert("이미 존재하는 이메일입니다.");
+          case 'user_already_exists':
+            alert('이미 존재하는 이메일입니다.');
             return;
-          case "weak_password":
-            alert("보안에 취약한 비밀번호입니다.");
+          case 'weak_password':
+            alert('보안에 취약한 비밀번호입니다.');
             return;
           default:
             alert(`회원가입 에러 : ${error.code}`);
         }
       } else {
-        alert("회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
-        navigate("/login");
+        alert('회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
+        navigate('/login');
       }
 
       // 네트워크 관련 에러

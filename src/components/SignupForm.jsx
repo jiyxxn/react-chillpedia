@@ -2,7 +2,7 @@ import {
   StSignupFormBox,
   StSignupInputBox,
   StSubmitButton,
-} from "../styles/Signup.styled";
+} from '../styles/signup.styled';
 
 /**
  * * 회원가입 폼 컴포넌트

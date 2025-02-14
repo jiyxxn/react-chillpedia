@@ -1,8 +1,0 @@
-{
-  "cSpell.words": ["chillpedia", "Pretendard", "supabase"],
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true,
-  "editor.formatOnType": true,
-  "prettier.configPath": "./config/.prettierrc"
-}

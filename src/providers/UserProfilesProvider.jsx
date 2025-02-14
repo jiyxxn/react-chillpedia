@@ -21,7 +21,7 @@ const UserProfilesProvider = ({ children }) => {
       if (profileData) {
         setAllUserProfiles(profileData);
       } else {
-        setAllUserProfiles(null);
+        setAllUserProfiles([]);
       }
     };
     fetchUserProfiles();

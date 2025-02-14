@@ -154,4 +154,13 @@ export const StCommentSection = styled.section`
     width: 100%;
     box-sizing: border-box;
   }
+
+  button {
+    border: none;
+    background: none;
+  }
+
+  button + button {
+    margin-left: 10px;
+  }
 `;

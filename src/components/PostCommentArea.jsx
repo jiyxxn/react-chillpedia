@@ -1,10 +1,43 @@
 import { useContext, useState } from 'react';
 import { UserLoginContext } from '../providers/AuthProvider';
 
-const PostComment = ({ comments, handleAddComment }) => {
+const PostComment = ({
+  comments,
+  handleAddComment,
+  handleUpdateComment,
+  handleDeleteComment,
+}) => {
   const { isLogin, user } = useContext(UserLoginContext);
   const [commentInputValue, setCommentInputValue] = useState([]); // 댓글 입력 input
+  const [isUpdating, setIsUpdating] = useState({});
+  const [commentUpdateValue, setCommentUpdateValue] = useState('');
 
+  const onToggleUpdateComment = (e, commentId, comments) => {
+    const buttonType = e.target.getAttribute('data-type');
+
+    // '수정' 버튼 클릭 시
+    if (buttonType === 'modify') {
+      setIsUpdating((prev) => ({ ...prev, [commentId]: true }));
+      setCommentUpdateValue(comments); // 노출된 수정 input에 수정 전 텍스트 반영
+      e.target.innerText = '완료';
+      e.target.setAttribute('data-type', 'complete');
+    } else if (buttonType === 'complete') {
+      // '완료' 버튼 클릭 시
+      handleUpdateComment(commentUpdateValue, commentId);
+      setIsUpdating((prev) => ({ ...prev, [commentId]: false }));
+      setCommentUpdateValue(''); // 수정이 완료되면 수정 input의 value 초기화
+      e.target.innerText = '수정';
+      e.target.setAttribute('data-type', 'modify');
+    }
+  };
+
+  const onDeleteComment = (commentId) => {
+    const isConfirmed = confirm('정말 삭제하시겠습니까?');
+
+    isConfirmed ? handleDeleteComment(commentId) : false;
+  };
+
+  console.log('commentUpdateValue =====>', commentUpdateValue);
   return (
     <>
       <h2>댓글</h2>
@@ -36,15 +69,46 @@ const PostComment = ({ comments, handleAddComment }) => {
             <li key={comment.id}>
               <div className="commentTopRow">
                 <p>
-                  <img src={comment.writer_image} />
-                  <span>{comment.writer_nickname}</span>
+                  <img src={comment.profiles.image} />
+                  <span>{comment.profiles.nickname}</span>
                 </p>
                 <div>
-                  <button type="button">수정</button>
-                  <button type="button">삭제</button>
+                  {comment.writer_id === user.id && (
+                    <>
+                      <button
+                        type="button"
+                        data-type="modify"
+                        onClick={(e) => {
+                          onToggleUpdateComment(
+                            e,
+                            comment.id,
+                            comment.comments,
+                          );
+                        }}
+                      >
+                        수정
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => onDeleteComment(comment.id)}
+                      >
+                        삭제
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
-              <p className="commentBottomRow">{comment.comments}</p>
+              <div className="commentBottomRow">
+                {isUpdating[comment.id] ? (
+                  <input
+                    type="text"
+                    value={commentUpdateValue}
+                    onChange={(e) => setCommentUpdateValue(e.target.value)}
+                  ></input>
+                ) : (
+                  <p>{comment.comments}</p>
+                )}
+              </div>
             </li>
           ))}
       </ul>

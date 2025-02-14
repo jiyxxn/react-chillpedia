@@ -15,7 +15,7 @@ const SignupForm = ({ formData, handleChange, handleSignup }) => {
   return (
     <StSignupFormBox>
       <StSignupInputBox>
-        <div class="input-type">
+        <div className="input-type">
           <span>아이디(이메일)</span>
           <span>닉네임</span>
           <span>비밀번호</span>

@@ -31,6 +31,7 @@ export const StSignupInputBox = styled.div`
     border-radius: 30px;
     background-color: var(--color-beige);
     font-size: 22px;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
 
     span {
       text-align: center;

@@ -120,7 +120,7 @@ const Signup = () => {
 
   return (
     <StContainer>
-      <span class="title">회원가입</span>
+      <span className="title">회원가입</span>
       <SignupForm
         formData={formData}
         handleChange={handleChange}

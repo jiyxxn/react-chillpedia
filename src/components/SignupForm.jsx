@@ -15,17 +15,24 @@ const SignupForm = ({ formData, handleChange, handleSignup }) => {
   return (
     <StSignupFormBox>
       <StSignupInputBox>
-        <div class="input-type">
+        <div className="input-type">
           <span>아이디(이메일)</span>
           <span>닉네임</span>
           <span>비밀번호</span>
           <span>비밀번호 확인</span>
         </div>
-        <form onSubmit={handleSignup}>
+        <form id="signupForm" onSubmit={handleSignup}>
           <input
             type="email"
             name="email"
             value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="text"
+            name="nickname"
+            value={formData.nickname}
             onChange={handleChange}
             required
           />
@@ -43,16 +50,11 @@ const SignupForm = ({ formData, handleChange, handleSignup }) => {
             onChange={handleChange}
             required
           />
-          <input
-            type="text"
-            name="nickname"
-            value={formData.nickname}
-            onChange={handleChange}
-            required
-          />
         </form>
       </StSignupInputBox>
-      <StSubmitButton type="submit">작성 완료</StSubmitButton>
+      <StSubmitButton type="submit" form="signupForm">
+        작성 완료
+      </StSubmitButton>
     </StSignupFormBox>
   );
 };

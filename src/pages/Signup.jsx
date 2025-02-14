@@ -36,7 +36,7 @@ const Signup = () => {
     password: (value) => {
       const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
       if (!passwordRegex.test(value)) {
-        return "비밀번호는 8자 이상, 문자와 숫자를 포함해야 합니다.";
+        return "비밀번호는 8자 이상의 문자와 숫자를 포함해야 합니다.";
       }
     },
 
@@ -120,7 +120,7 @@ const Signup = () => {
 
   return (
     <StContainer>
-      <span class="title">회원가입</span>
+      <span className="title">회원가입</span>
       <SignupForm
         formData={formData}
         handleChange={handleChange}

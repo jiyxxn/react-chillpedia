@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import supabase from "../shared/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import SignupForm from "../components/SignupForm";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -57,7 +59,7 @@ const Signup = () => {
         .from("profiles")
         .select("nickname")
         .eq("nickname", value)
-        .single();
+        .maybeSingle();
 
       if (error) {
         return "알 수 없는 에러입니다.";
@@ -117,45 +119,35 @@ const Signup = () => {
   };
 
   return (
-    <div>
-      <p>회원가입</p>
-      <form onSubmit={handleSignup}>
-        <input
-          type="email"
-          name="email"
-          placeholder="이메일"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="비밀번호"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="비밀번호 확인"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="nickname"
-          placeholder="닉네임"
-          value={formData.nickname}
-          onChange={handleChange}
-          required
-        />
-        <button type="submit">회원가입</button>
-      </form>
-    </div>
+    <StContainer>
+      <span class="title">회원가입</span>
+      <SignupForm
+        formData={formData}
+        handleChange={handleChange}
+        handleSignup={handleSignup}
+      />
+    </StContainer>
   );
 };
 
 export default Signup;
+
+const StContainer = styled.div`
+  width: 100%;
+  min-width: 1100px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-white);
+  gap: 100px;
+
+  .title {
+    text-align: center;
+    width: 250px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-gray);
+    font-size: 26px;
+  }
+`;

@@ -113,7 +113,6 @@ export const StCommentSection = styled.section`
     color: var(--color-white);
     border: none;
     border-radius: 16px;
-    cursor: pointer;
   }
 
   input {
@@ -149,5 +148,10 @@ export const StCommentSection = styled.section`
     width: 40px;
     height: 40px;
     border-radius: 50%;
+  }
+
+  .commentBottomRow input {
+    width: 100%;
+    box-sizing: border-box;
   }
 `;

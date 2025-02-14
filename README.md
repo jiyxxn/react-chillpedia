@@ -121,7 +121,6 @@
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"/>
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/>
 <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&amp;logo=styled-components&amp;logoColor=white">
-<img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&amp;logo=Redux&amp;logoColor=#764ABC">
 
 ### Record
 <a href="https://www.figma.com/design/SnKoaJ8xQiLnqNhDQUaJEx/%EA%B0%90Chill%EB%A7%9B-%EB%B0%B1%EA%B3%BC?node-id=0-1&t=zT9Fy8RWzbVdfSol-1" target="blank"><img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="Figma" /></a>

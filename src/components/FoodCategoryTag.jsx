@@ -28,6 +28,8 @@ const FoodCategoryTag = ({ category }) => {
 };
 
 const StCategoryLabels = styled.span`
+  position: absolute;
+  right: -65px; /* 라벨 크기만큼 오른쪽으로 이동 */
   padding: 8px 18px;
   background-color: ${(props) => props.$backgroundColor || '#fefefe'};
 `;

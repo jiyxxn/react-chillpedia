@@ -4,6 +4,7 @@ import supabase from '../shared/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SignupForm from '../components/SignupForm';
+import { toast } from 'react-toastify';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -13,14 +14,18 @@ const Signup = () => {
     confirmPassword: '',
     nickname: '',
   });
+  const [isNicknameChecked, setNicknameChecked] = useState(false);
 
   // * state 객체의 set 핸들러
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
+    if (name === 'nickname') {
+      setNicknameChecked(false);
+    }
   };
 
   // * 유저 정보의 유효성에 따른 에러 메시지를 반환하는 함수 객체
@@ -70,16 +75,32 @@ const Signup = () => {
     },
   };
 
+  // * 닉네임 중복 확인 버튼 핸들러 함수
+  const nicknameCheckHandler = async () => {
+    const errorMessage = await userDataValidations.nickname(formData.nickname);
+    if (errorMessage) {
+      toast.warning(errorMessage);
+    } else {
+      setNicknameChecked(true);
+    }
+  };
+
   // * 회원가입 핸들러 함수
   const handleSignup = async (e) => {
     e.preventDefault();
+
+    // 닉네임 중복 확인을 통과했을 경우에만 넘어가도록 하기
+    if (!isNicknameChecked) {
+      toast.warning('닉네임 중복 확인을 해주세요.');
+      return;
+    }
 
     try {
       // 유효성 검증
       for (const [type, value] of Object.entries(formData)) {
         const errorMessage = await userDataValidations[type](value, formData);
         if (errorMessage) {
-          alert(errorMessage);
+          toast.warning(errorMessage);
           return;
         }
       }
@@ -99,13 +120,13 @@ const Signup = () => {
       if (error) {
         switch (error.code) {
           case 'user_already_exists':
-            alert('이미 존재하는 이메일입니다.');
+            toast.warning('이미 존재하는 이메일입니다.');
             return;
           case 'weak_password':
-            alert('보안에 취약한 비밀번호입니다.');
+            toast.warning('보안에 취약한 비밀번호입니다.');
             return;
           default:
-            alert(`회원가입 에러 : ${error.code}`);
+            toast.warning(`회원가입 에러 : ${error.code}`);
         }
       } else {
         alert('회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
@@ -114,17 +135,19 @@ const Signup = () => {
 
       // 네트워크 관련 에러
     } catch (error) {
-      alert(`회원가입 중 오류가 발생했습니다. : ${error.message}`);
+      toast.warning(`회원가입 중 오류가 발생했습니다. : ${error.message}`);
     }
   };
 
   return (
     <StContainer>
-      <span className="title">회원가입</span>
+      <h2>회원가입</h2>
       <SignupForm
         formData={formData}
-        handleChange={handleChange}
+        handleInputChange={handleInputChange}
         handleSignup={handleSignup}
+        isNicknameChecked={isNicknameChecked}
+        nicknameCheckHandler={nicknameCheckHandler}
       />
     </StContainer>
   );
@@ -143,7 +166,7 @@ const StContainer = styled.div`
   background-color: var(--color-white);
   gap: 100px;
 
-  .title {
+  h2 {
     text-align: center;
     width: 250px;
     padding-bottom: 20px;

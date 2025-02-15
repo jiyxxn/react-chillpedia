@@ -11,25 +11,57 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    if (!email || !password) {
+      alert('이메일과 비밀번호를 입력해주세요.');
+      return;
+    }
+
+    // 이메일 형식 확인 (정규식 사용)
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      alert('올바른 이메일 형식을 입력해주세요.');
+      return;
+    }
+
+    if (password.length < 6) {
+      alert('비밀번호는 최소 6자 이상이어야 합니다.');
+      return;
+    }
+
     try {
-      await supabase.auth.signInWithPassword({ email, password });
-      alert('로그인이 완료되었습니다. 홈 페이지로 이동합니다.');
-      navigate('/');
-    } catch (error) {
-      console.error('로그인 오류:', error);
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        alert('이메일 또는 비밀번호가 잘못되었습니다.');
+        return;
+      }
+
+      if (data?.user) {
+        alert('로그인이 완료되었습니다.');
+        navigate('/');
+      } else {
+        alert('회원 정보가 존재하지 않습니다.');
+      }
+    } catch (err) {
+      console.error('오류 발생:', err);
+      alert('오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
     }
   };
 
   return (
     <LoginContainer>
       <LoginTitle>로그인</LoginTitle>
-      <div>
-        <LoginBox onSubmit={handleLogin}>
-          <AuthContainer>
+      <LoginBox onSubmit={handleLogin}>
+        <AuthContainer>
+          <AuthAddress>
             <AuthSpan>아이디(이메일)</AuthSpan>
             <Divider />
             <AuthSpan>비밀번호</AuthSpan>
-          </AuthContainer>
+          </AuthAddress>
           <AuthInput>
             <LoginInput
               type="email"
@@ -44,13 +76,19 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </AuthInput>
-        </LoginBox>
-
+        </AuthContainer>
         <LoginButtonGroup>
           <LoginButton type="submit">로그인</LoginButton>
-          <SignUpButton>회원가입</SignUpButton>
+          <SignUpButton
+            onClick={(e) => {
+              e.preventDefault();
+              navigate('/signup');
+            }}
+          >
+            회원가입
+          </SignUpButton>
         </LoginButtonGroup>
-      </div>
+      </LoginBox>
     </LoginContainer>
   );
 };
@@ -64,16 +102,9 @@ const LoginContainer = styled.div`
 `;
 
 const LoginBox = styled.form`
-  width: 980px;
-  height: 380px;
   padding: 70px;
-  border: 1px solid #66666e;
-  border-radius: 20px;
   display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-  align-items: center;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  flex-direction: column;
 `;
 const LoginTitle = styled.h2`
   font-size: 25px;
@@ -82,6 +113,18 @@ const LoginTitle = styled.h2`
 `;
 
 const AuthContainer = styled.div`
+  width: 980px;
+  height: 380px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid #66666e;
+  justify-content: space-around;
+  border-radius: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+`;
+
+const AuthAddress = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -116,11 +159,11 @@ const Divider = styled.hr`
 `;
 
 const LoginInput = styled.input`
-  width: 500px;
+  width: 380px;
   height: 50px;
   border: 1px solid black;
   border-radius: 50px;
-  text-align: center;
+  padding-left: 25px;
 `;
 
 const LoginButtonGroup = styled.div`
@@ -132,7 +175,7 @@ const LoginButtonGroup = styled.div`
 `;
 
 const LoginButton = styled.button`
-  width: 48%;
+  width: 470px;
   height: 80px;
   font-size: 18px;
   font-weight: bold;
@@ -144,7 +187,7 @@ const LoginButton = styled.button`
 `;
 
 const SignUpButton = styled.button`
-  width: 48%;
+  width: 470px;
   height: 80px;
   font-size: 18px;
   font-weight: bold;

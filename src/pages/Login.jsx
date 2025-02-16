@@ -99,6 +99,7 @@ const LoginContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #faf6ea;
 `;
 
 const LoginBox = styled.form`
@@ -159,9 +160,10 @@ const Divider = styled.hr`
 `;
 
 const LoginInput = styled.input`
-  width: 380px;
+  width: 480px;
   height: 50px;
   border: 1px solid black;
+  background-color: #faf6ea;
   border-radius: 50px;
   padding-left: 25px;
 `;

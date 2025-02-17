@@ -5,10 +5,12 @@ import PostWrite from '../pages/PostWrite';
 import PostDetail from '../pages/PostDetail';
 import Signup from '../pages/Signup';
 import Login from '../pages/Login';
+import LayoutHeader from '../components/LayoutHeader';
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <LayoutHeader />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>

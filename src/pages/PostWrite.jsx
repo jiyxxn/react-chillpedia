@@ -24,7 +24,7 @@ const PostWrite = () => {
   const [imageName, setImageName] = useState('');
   const [oldPostData, setOldPostData] = useState({});
   const [oldImageName, setOldImageName] = useState('');
-  const POST_DEFAULT_IMAGE = '/public/postDefaultImage.png';
+  const POST_DEFAULT_IMAGE = '/postDefaultImage.png';
   const img = import.meta.env.VITE_IMAGE_URL_BASE;
   const { id } = useParams();
 
@@ -149,12 +149,14 @@ const PostWrite = () => {
       await deleteImage().catch((err) => console.error('이미지 삭제 실패!'));
     }
 
-    if (post.image_url !== oldPostData.image_url || !id) {
+    if ((imageName && imageName !== oldImageName) || !id) {
       await uploadImage().catch((err) => console.error('이미지 업로드 실패!'));
     }
 
     const uploadDatas = {
-      image_url: `${import.meta.env.VITE_IMAGE_URL_BASE}user-uploads/${imageName}`,
+      image_url: imageName
+        ? `${import.meta.env.VITE_IMAGE_URL_BASE}user-uploads/${imageName}`
+        : post.image_url,
       restaurant_name: post.restaurant_name,
       restaurant_address: post.restaurant_address,
       restaurant_location: post.restaurant_location,

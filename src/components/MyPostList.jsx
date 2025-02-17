@@ -96,7 +96,12 @@ const MyPostList = () => {
       ) : (
         <ul>
           {myPosts.map((post) => (
-            <li key={post.id}>
+            <li
+              key={post.id}
+              onClick={() => {
+                navigate(`/post-detail/${post.id}`);
+              }}
+            >
               <PostPreviewCard
                 post={post}
                 postEditButtonHandler={postEditButtonHandler}

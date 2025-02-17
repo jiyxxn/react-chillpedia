@@ -1,5 +1,5 @@
 import UserLoginProvider from './providers/AuthProvider';
-import Router from './shared/router';
+import Router from './shared/Router';
 import { GlobalStyles } from './styles/globalStyles';
 import ToastAlert from './components/ToastAlert';
 

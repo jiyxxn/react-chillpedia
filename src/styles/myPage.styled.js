@@ -128,6 +128,10 @@ export const StMyPost = styled.div`
       0px 2px 3px 0px rgba(0, 0, 0, 0.15),
       0px 6px 10px 0px rgba(0, 0, 0, 0.12);
   }
+
+  li {
+    cursor: pointer;
+  }
 `;
 
 export const StPreviewCard = styled.div`

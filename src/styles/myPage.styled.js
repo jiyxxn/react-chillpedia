@@ -93,7 +93,13 @@ export const StMyPost = styled.div`
   flex-direction: column;
 
   h2 {
+    margin: 0 auto 0 25px;
+    background-color: var(--color-beige);
+    border: 1px solid var(--color-black);
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
     padding: 25px 35px 25px 35px;
+    font-size: 22px;
   }
 
   .emptyPostList {
@@ -103,6 +109,11 @@ export const StMyPost = styled.div`
     width: 1100px;
     height: 300px;
     border: 1px solid var(--color-black);
+    border-radius: 20px;
+    box-shadow:
+      0px 2px 3px 0px rgba(0, 0, 0, 0.15),
+      0px 6px 10px 0px rgba(0, 0, 0, 0.12);
+    font-size: 18px;
   }
 
   ul {
@@ -110,12 +121,25 @@ export const StMyPost = styled.div`
     grid-template-columns: 1fr 1fr;
     padding: 80px 125px 80px 125px;
     border: 1px solid var(--color-black);
+    border-radius: 20px;
+    column-gap: 50px;
+    row-gap: 45px;
+    box-shadow:
+      0px 2px 3px 0px rgba(0, 0, 0, 0.15),
+      0px 6px 10px 0px rgba(0, 0, 0, 0.12);
   }
 `;
 
 export const StPreviewCard = styled.div`
-  padding: 33px 50px 33px 50px;
-  border: 1px solid var(--color-black);
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  padding: 33px 50px 15px 50px;
+  background-color: var(--color-beige);
+  border-radius: 20px;
+  box-shadow:
+    0px 2px 3px 0px rgba(0, 0, 0, 0.15),
+    0px 6px 10px 0px rgba(0, 0, 0, 0.12);
 
   img {
     width: 300px;
@@ -123,21 +147,52 @@ export const StPreviewCard = styled.div`
     object-fit: cover;
   }
 
-  .title-location {
+  .post-info {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 19px;
 
-    h3 {
-      flex: 1;
+    .title-location {
+      display: flex;
+      flex-direction: row;
+
+      h3 {
+        font-size: 22px;
+        flex: 1;
+      }
+
+      span {
+        color: var(--color-gray);
+        font-size: 18px;
+      }
     }
-  }
 
-  .date-button {
-    display: flex;
-    flex-direction: row;
+    .date-button {
+      display: flex;
+      flex-direction: row;
 
-    span {
-      flex: 1;
+      span {
+        flex: 1;
+        color: var(--color-gray);
+        font-size: 18px;
+      }
+
+      button {
+        width: 50px;
+        height: 24px;
+        border: 1px solid var(--color-black);
+        border-radius: 8px;
+        font-size: 12px;
+      }
+
+      .edit-button {
+        background-color: var(--color-white);
+      }
+
+      .delete-button {
+        margin-left: 10px;
+        background-color: var(--color-beige);
+      }
     }
   }
 `;

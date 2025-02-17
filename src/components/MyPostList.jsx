@@ -13,7 +13,11 @@ const MyPostList = () => {
   useEffect(() => {
     // * 내 게시물 리스트를 가져오는 함수
     const getAllPosts = async () => {
-      return await supabase.from('posts').select('*').eq('writer_id', user.id);
+      return await supabase
+        .from('posts')
+        .select('*')
+        .eq('writer_id', user.id)
+        .order('created_at', { ascending: false });
     };
     const fetchPosts = async () => {
       try {

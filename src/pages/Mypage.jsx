@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import MyProfile from '../components/MyProfile';
 import MyPostList from '../components/MyPostList';
-import { useEffect } from 'react';
-import supabase from '../shared/supabaseClient';
 
 const MyPage = () => {
   return (
@@ -23,6 +21,6 @@ const StContainer = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: var(--color-white);
-  padding-top: 172px;
+  padding: 172px 0 172px 0;
   gap: 100px;
 `;

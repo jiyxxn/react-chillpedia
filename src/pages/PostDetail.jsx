@@ -12,7 +12,7 @@ const PostDetail = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data, error } = await supabase
+    const { data, error } = await supabase
         .from('posts')
         .select('*, profiles(nickname, image)');
 

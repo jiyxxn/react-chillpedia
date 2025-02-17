@@ -20,16 +20,29 @@ const FoodCategoryTag = ({ category }) => {
     }
   };
 
+  const matchWidthCategory = (category) => {
+    switch (category) {
+      case '아시안':
+        return '-77px';
+      case '디저트':
+        return '-77px';
+      default: 
+        return '-65px';
+    }   
+  }
+
   return (
-    <StCategoryLabels $backgroundColor={matchColorCategory(category)}>
+    <StCategoryLabels $backgroundColor={matchColorCategory(category)} $positionRight={matchWidthCategory(category)} >
       {category}
     </StCategoryLabels>
   );
 };
 
+
 const StCategoryLabels = styled.span`
   position: absolute;
-  right: -65px; /* 라벨 크기만큼 오른쪽으로 이동 */
+  top: 30px;
+  right: ${(props) => props.$positionRight };
   padding: 8px 18px;
   background-color: ${(props) => props.$backgroundColor || '#fefefe'};
 `;

@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react';
-import { UserLoginContext } from '../providers/AuthProvider';
+import { useContext, useState } from "react";
+import { UserLoginContext } from "../providers/AuthProvider";
 
 const PostComment = ({
   comments,
@@ -55,7 +55,7 @@ const PostComment = ({
             type="button"
             onClick={() => {
               handleAddComment(commentInputValue);
-              setCommentInputValue('');
+              setCommentInputValue("");
             }}
           >
             작성

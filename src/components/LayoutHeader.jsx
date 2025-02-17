@@ -2,24 +2,25 @@ import { useContext } from 'react';
 import styled from 'styled-components';
 import { UserLoginContext } from '../providers/AuthProvider';
 import { Link, useNavigate } from 'react-router-dom';
-import supabase from '../shared/supabaseClient';
+import { toast } from 'react-toastify';
 
 const LayoutHeader = () => {
-  const { isLogin } = useContext(UserLoginContext);
+  const { isLogin, logout } = useContext(UserLoginContext);
   const navigate = useNavigate();
 
   const handleMypageClick = () => {
     if (isLogin) {
       navigate('/mypage');
     } else {
-      alert('로그인이 필요합니다.');
+      toast.warning('로그인이 필요합니다.');
       navigate('/login');
     }
   };
 
   const handleAuthButtonClick = async () => {
     if (isLogin) {
-      await supabase.auth.signOut();
+      await logout();
+      navigate('/');
     } else {
       navigate('/login');
     }
@@ -59,6 +60,7 @@ const HeaderBox = styled.header`
   padding: 0 60px;
   align-items: center;
   position: fixed;
+  z-index: 999;
 `;
 
 const Logo = styled(Link)`

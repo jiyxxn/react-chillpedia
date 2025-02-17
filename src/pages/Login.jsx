@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import supabase from '../shared/supabaseClient';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [password, setPassword] = useState('');
@@ -12,19 +13,19 @@ const Login = () => {
     e.preventDefault();
 
     if (!email || !password) {
-      alert('이메일과 비밀번호를 입력해주세요.');
+      toast.warning('이메일과 비밀번호를 입력해주세요.');
       return;
     }
 
     // 이메일 형식 확인 (정규식 사용)
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
-      alert('올바른 이메일 형식을 입력해주세요.');
+      toast.warning('올바른 이메일 형식을 입력해주세요.');
       return;
     }
 
     if (password.length < 8) {
-      alert('비밀번호는 최소 8자 이상이어야 합니다.');
+      toast.warning('비밀번호는 최소 8자 이상이어야 합니다.');
       return;
     }
 
@@ -35,19 +36,19 @@ const Login = () => {
       });
 
       if (error) {
-        alert('이메일 또는 비밀번호가 잘못되었습니다.');
+        toast.error('이메일 또는 비밀번호가 잘못되었습니다.');
         return;
       }
 
       if (data?.user) {
-        alert('로그인이 완료되었습니다.');
+        toast.success('로그인이 완료되었습니다.');
         navigate('/');
       } else {
-        alert('회원 정보가 존재하지 않습니다.');
+        toast.warning('회원 정보가 존재하지 않습니다.');
       }
     } catch (err) {
       console.error('오류 발생:', err);
-      alert('오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      toast.error('오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
     }
   };
 
@@ -100,7 +101,8 @@ const LoginContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 200px 0 100px;
   background-color: #faf6ea;
   h2 {
     font-size: 25px;
@@ -176,6 +178,8 @@ const LoginButtonGroup = styled.div`
   .login-button {
     width: 470px;
     height: 80px;
+    font-weight: bold;
+    font-size: 24px;
     border: 1px solid #66666e;
     border-radius: 20px;
     background-color: #efe1c6;
@@ -184,6 +188,8 @@ const LoginButtonGroup = styled.div`
   .signup-button {
     width: 470px;
     border: 1px solid #66666e;
+    font-weight: bold;
+    font-size: 24px;
     border-radius: 20px;
     background-color: #faf6ea;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);

@@ -1,4 +1,4 @@
-import supabase from '../shared/supabaseClient';
+import supabase from '../shared/SupabaseClient';
 import { useContext, useState, useEffect } from 'react';
 import { UserLoginContext } from '../providers/AuthProvider';
 import { StCommentSection } from '../styles/detailCard.styled';

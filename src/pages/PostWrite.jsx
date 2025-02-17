@@ -2,8 +2,8 @@ import styled, { css } from 'styled-components';
 import { foodTypeList } from '../shared/Category';
 import { useState, useEffect, useContext } from 'react';
 import { HandleSelectBox } from '../components/HandleSelectBox';
-import { locationList } from '../shared/locationList';
-import supabase from '../shared/supabaseClient';
+import { locationList } from '../shared/LocationList';
+import supabase from '../shared/SupabaseClient';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { UserLoginContext } from '../providers/AuthProvider';
 

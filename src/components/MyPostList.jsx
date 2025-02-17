@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserLoginContext } from '../providers/AuthProvider';
 import { StMyPost } from '../styles/myPage.styled';
-import supabase from '../shared/supabaseClient';
+import supabase from '../shared/SupabaseClient';
 import PostPreviewCard from './PostPreviewCard';
 
 const MyPostList = () => {

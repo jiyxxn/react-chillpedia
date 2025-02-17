@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { UserLoginContext } from '../providers/AuthProvider';
 import { StProfile } from '../styles/myPage.styled';
 import { userDataValidations } from '../utils/userDataValidations';
-import supabase from '../shared/supabaseClient';
+import supabase from '../shared/SupabaseClient';
 import { formatDate } from '../utils/formatDate';
 
 const MyProfile = () => {

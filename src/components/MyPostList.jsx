@@ -98,9 +98,7 @@ const MyPostList = () => {
           {myPosts.map((post) => (
             <li
               key={post.id}
-              onClick={() => {
-                navigate(`/post-detail/${post.id}`);
-              }}
+              onClick={() => navigate(`/post-detail/${post.id}`)}
             >
               <PostPreviewCard
                 post={post}

@@ -66,6 +66,7 @@ const Signup = () => {
         options: {
           data: {
             nickname: formData.nickname,
+            image: '/profile_default.png',
           },
         },
       });

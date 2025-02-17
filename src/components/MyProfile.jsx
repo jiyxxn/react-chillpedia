@@ -170,7 +170,7 @@ const MyProfile = () => {
 
   // 유저 프로필을 불러오기 전까지 컴포넌트 렌더링 X
   if (!userProfile) {
-    return <div>Loading...</div>;
+    return <div>내 프로필을 로딩중입니다...</div>;
   }
 
   return (

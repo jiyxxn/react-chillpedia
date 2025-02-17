@@ -87,3 +87,57 @@ export const StProfile = styled.div`
     }
   }
 `;
+
+export const StMyPost = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    padding: 25px 35px 25px 35px;
+  }
+
+  .emptyPostList {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1100px;
+    height: 300px;
+    border: 1px solid var(--color-black);
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 80px 125px 80px 125px;
+    border: 1px solid var(--color-black);
+  }
+`;
+
+export const StPreviewCard = styled.div`
+  padding: 33px 50px 33px 50px;
+  border: 1px solid var(--color-black);
+
+  img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+  }
+
+  .title-location {
+    display: flex;
+    flex-direction: row;
+
+    h3 {
+      flex: 1;
+    }
+  }
+
+  .date-button {
+    display: flex;
+    flex-direction: row;
+
+    span {
+      flex: 1;
+    }
+  }
+`;

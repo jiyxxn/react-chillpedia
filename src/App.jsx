@@ -1,3 +1,4 @@
+import LayoutHeader from './components/LayoutHeader';
 import UserLoginProvider from './providers/AuthProvider';
 import UserProfilesProvider from './providers/UserProfilesProvider';
 import Router from './shared/router';
@@ -8,6 +9,7 @@ function App() {
     <UserLoginProvider>
       <UserProfilesProvider>
         <GlobalStyles />
+        <LayoutHeader />
         <Router />
       </UserProfilesProvider>
     </UserLoginProvider>

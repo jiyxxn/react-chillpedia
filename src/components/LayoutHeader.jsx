@@ -59,6 +59,7 @@ const HeaderBox = styled.header`
   padding: 0 60px;
   align-items: center;
   position: fixed;
+  z-index: 999;
 `;
 
 const Logo = styled(Link)`

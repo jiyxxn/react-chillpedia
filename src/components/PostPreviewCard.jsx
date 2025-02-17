@@ -18,13 +18,19 @@ const PostPreviewCard = ({
           <span>{formatDate(post.created_at, 'dots')}</span>
           <button
             className="edit-button"
-            onClick={() => postEditButtonHandler(post)}
+            onClick={(e) => {
+              e.stopPropagation();
+              postEditButtonHandler(post);
+            }}
           >
             수정
           </button>
           <button
             className="delete-button"
-            onClick={() => postDeleteButtonHandler(post)}
+            onClick={(e) => {
+              e.stopPropagation();
+              postDeleteButtonHandler(post);
+            }}
           >
             삭제
           </button>

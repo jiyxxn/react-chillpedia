@@ -285,7 +285,7 @@ const StContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding: 100px 0;
+  padding: 250px 0 100px;
   gap: 52px;
 `;
 

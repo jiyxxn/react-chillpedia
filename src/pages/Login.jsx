@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 import supabase from '../shared/supabaseClient';
@@ -24,8 +23,8 @@ const Login = () => {
       return;
     }
 
-    if (password.length < 6) {
-      alert('비밀번호는 최소 6자 이상이어야 합니다.');
+    if (password.length < 8) {
+      alert('비밀번호는 최소 8자 이상이어야 합니다.');
       return;
     }
 
@@ -54,22 +53,22 @@ const Login = () => {
 
   return (
     <LoginContainer>
-      <LoginTitle>로그인</LoginTitle>
+      <h2>로그인</h2>
       <LoginBox onSubmit={handleLogin}>
         <AuthContainer>
           <AuthAddress>
-            <AuthSpan>아이디(이메일)</AuthSpan>
+            <span>아이디(이메일)</span>
             <Divider />
-            <AuthSpan>비밀번호</AuthSpan>
+            <span>비밀번호</span>
           </AuthAddress>
           <AuthInput>
-            <LoginInput
+            <input
               type="email"
               value={email}
               placeholder="이메일"
               onChange={(e) => setEmail(e.target.value)}
             />
-            <LoginInput
+            <input
               type="password"
               value={password}
               placeholder="password"
@@ -78,15 +77,18 @@ const Login = () => {
           </AuthInput>
         </AuthContainer>
         <LoginButtonGroup>
-          <LoginButton type="submit">로그인</LoginButton>
-          <SignUpButton
+          <button className="login-button" type="submit">
+            로그인
+          </button>
+          <button
+            className="signup-button"
             onClick={(e) => {
               e.preventDefault();
               navigate('/signup');
             }}
           >
             회원가입
-          </SignUpButton>
+          </button>
         </LoginButtonGroup>
       </LoginBox>
     </LoginContainer>
@@ -100,17 +102,16 @@ const LoginContainer = styled.div`
   align-items: center;
   height: 100vh;
   background-color: #faf6ea;
+  h2 {
+    font-size: 25px;
+    margin-bottom: 35px;
+    font-weight: bold;
+  }
 `;
 
 const LoginBox = styled.form`
-  padding: 70px;
   display: flex;
   flex-direction: column;
-`;
-const LoginTitle = styled.h2`
-  font-size: 25px;
-  margin-bottom: 35px;
-  font-weight: bold;
 `;
 
 const AuthContainer = styled.div`
@@ -138,34 +139,32 @@ const AuthAddress = styled.div`
   gap: 30px;
   text-align: center;
   align-items: center;
-  text-align: center;
+  span {
+    font-size: 18px;
+    font-weight: bold;
+  }
 `;
 
 const AuthInput = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 33px;
-`;
+  gap: 34px;
 
-const AuthSpan = styled.span`
-  font-size: 18px;
-  font-weight: bold;
+  input {
+    width: 480px;
+    height: 50px;
+    border: 1px solid black;
+    background-color: #faf6ea;
+    border-radius: 50px;
+    padding-left: 25px;
+  }
 `;
 
 const Divider = styled.hr`
   width: 100%;
   border: none;
   border-top: 2px solid #66666e;
-  margin: 0.5px 0;
-`;
-
-const LoginInput = styled.input`
-  width: 480px;
-  height: 50px;
-  border: 1px solid black;
-  background-color: #faf6ea;
-  border-radius: 50px;
-  padding-left: 25px;
+  margin: 1px 0;
 `;
 
 const LoginButtonGroup = styled.div`
@@ -174,29 +173,20 @@ const LoginButtonGroup = styled.div`
   margin-top: 25px;
   justify-content: space-between;
   width: 100%;
-`;
-
-const LoginButton = styled.button`
-  width: 470px;
-  height: 80px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  border: 1px solid #66666e;
-  border-radius: 20px;
-  background-color: #efe1c6;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-`;
-
-const SignUpButton = styled.button`
-  width: 470px;
-  height: 80px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  border: 1px solid #66666e;
-  border-radius: 20px;
-  background-color: #faf6ea;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  .login-button {
+    width: 470px;
+    height: 80px;
+    border: 1px solid #66666e;
+    border-radius: 20px;
+    background-color: #efe1c6;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  .signup-button {
+    width: 470px;
+    border: 1px solid #66666e;
+    border-radius: 20px;
+    background-color: #faf6ea;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  }
 `;
 export default Login;

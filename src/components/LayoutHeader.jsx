@@ -31,16 +31,16 @@ const LayoutHeader = () => {
       <AuthButtonGroup>
         <HeaderButton onClick={handleMypageClick}>
           마이페이지
-          <MyLogo src="/Mypage.png" />
+          <MyLogo src="/icon_mypage.png" />
         </HeaderButton>
         <HeaderButton onClick={handleAuthButtonClick}>
           {isLogin ? (
             <>
-              로그아웃 <AuthLogo src="/Logout.png" />
+              로그아웃 <AuthLogo src="/icon_logout.png" />
             </>
           ) : (
             <>
-              로그인 <AuthLogo src="/Login.png" />
+              로그인 <AuthLogo src="/icon_login.png" />
             </>
           )}
         </HeaderButton>
@@ -64,7 +64,7 @@ const HeaderBox = styled.header`
 const Logo = styled(Link)`
   width: 250px;
   height: 100px;
-  background-image: url('/ChillLogo.png');
+  background-image: url('/chill_logo.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

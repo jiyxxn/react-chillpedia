@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from 'react';
 import { HandleSelectBox } from '../components/HandleSelectBox';
 import { locationList } from '../shared/locationList';
 import supabase from '../shared/supabaseClient';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { UserLoginContext } from '../providers/AuthProvider';
 
 const priceRange = {
@@ -18,16 +18,15 @@ const priceRange = {
 const priceRangeList = Object.entries(priceRange);
 
 const PostWrite = () => {
-  const location = useLocation();
-  const { isLogin, user } = useContext(UserLoginContext);
   const navigate = useNavigate();
+  const { isLogin, user } = useContext(UserLoginContext);
   const [imageSrc, setImageSrc] = useState(null);
   const [imageName, setImageName] = useState('');
   const [oldPostData, setOldPostData] = useState({});
   const [oldImageName, setOldImageName] = useState('');
-  const { postId } = location.state || {};
   const POST_DEFAULT_IMAGE = '/public/postDefaultImage.png';
   const img = import.meta.env.VITE_IMAGE_URL_BASE;
+  const { id } = useParams();
 
   useEffect(() => {
     if (!isLogin) {
@@ -49,13 +48,13 @@ const PostWrite = () => {
 
   // 수정 버튼 onClick으로 들어왔을 때 작성된 post 정보 불러와서 화면에 뿌리기
   useEffect(() => {
-    if (postId) {
+    if (id) {
       const getPostAndRender = async () => {
         try {
           const { data: postData, error } = await supabase
             .from('posts')
             .select('*')
-            .eq('id', postId)
+            .eq('id', id)
             .single();
           setPost(postData);
           setOldPostData(postData);
@@ -146,11 +145,11 @@ const PostWrite = () => {
     }
 
     // 수정할 때 이미지가 바뀌는 경우 기존에 업로드된 이미지 삭제
-    if (postId && post.image_url !== oldPostData.image_url) {
+    if (id && post.image_url !== oldPostData.image_url) {
       await deleteImage().catch((err) => console.error('이미지 삭제 실패!'));
     }
 
-    if (post.image_url !== oldPostData.image_url || !postId) {
+    if (post.image_url !== oldPostData.image_url || !id) {
       await uploadImage().catch((err) => console.error('이미지 업로드 실패!'));
     }
 
@@ -166,7 +165,7 @@ const PostWrite = () => {
       writer_id: user.id,
     };
 
-    if (!postId) {
+    if (!id) {
       try {
         await supabase.from('posts').insert([uploadDatas]);
         alert('성공적으로 업로드 되었습니다!');
@@ -178,7 +177,7 @@ const PostWrite = () => {
         const { error } = await supabase
           .from('posts')
           .update(uploadDatas)
-          .eq('id', postId);
+          .eq('id', id);
         alert('성공적으로 수정 되었습니다!');
       } catch (error) {
         return console.error('error', error.message);

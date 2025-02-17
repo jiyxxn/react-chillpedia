@@ -8,11 +8,11 @@ import {
   StDetailBox,
 } from '../styles/detailCard.styled';
 import PostCommentArea from './PostCommentArea';
-// import { UserLoginContext } from '../providers/AuthProvider';
+import { UserLoginContext } from '../providers/AuthProvider';
 
 const PostDetailCard = (post) => {
   const allUserProfiles = useContext(UserProfileContext);
-  // const { user } = useContext(UserLoginContext);
+  const { user } = useContext(UserLoginContext);
   const [writer, setWriter] = useState(null); // 게시글 작성자
   const [comments, setComments] = useState([]); // 댓글 목록 데이터
 

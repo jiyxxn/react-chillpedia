@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { UserLoginContext } from '../providers/AuthProvider';
 import { Link, useNavigate } from 'react-router-dom';
 import supabase from '../shared/supabaseClient';
+import { toast } from 'react-toastify';
 
 const LayoutHeader = () => {
   const { isLogin } = useContext(UserLoginContext);
@@ -12,7 +13,7 @@ const LayoutHeader = () => {
     if (isLogin) {
       navigate('/mypage');
     } else {
-      alert('로그인이 필요합니다.');
+      toast.warning('로그인이 필요합니다.');
       navigate('/login');
     }
   };

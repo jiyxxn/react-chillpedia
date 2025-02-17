@@ -1,7 +1,7 @@
 import { useEffect, useState, createContext } from 'react';
 import supabase from '../shared/supabaseClient';
 
-const UserLoginContext = createContext();
+export const UserLoginContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserLoginContext.Provider value={{ isLogin }}>
+    <UserLoginContext.Provider value={{ isLogin, user }}>
       {children}
     </UserLoginContext.Provider>
   );

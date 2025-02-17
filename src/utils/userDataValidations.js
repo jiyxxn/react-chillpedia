@@ -1,4 +1,4 @@
-import supabase from '../../shared/supabaseClient';
+import supabase from '../shared/supabaseClient';
 
 // * 유저 정보의 유효성에 따른 에러 메시지를 반환하는 함수 객체
 export const userDataValidations = {

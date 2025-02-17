@@ -1,19 +1,11 @@
 import { StPreviewCard } from '../styles/myPage.styled';
+import { formatDate } from '../utils/formatDate';
 
 const PostPreviewCard = ({
   post,
   postEditButtonHandler,
   postDeleteButtonHandler,
 }) => {
-  // * 날짜 형식을 바꾸는 함수
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}. ${month}. ${day}.`;
-  };
-
   return (
     <StPreviewCard>
       <img src={post.image_url} />
@@ -23,7 +15,7 @@ const PostPreviewCard = ({
           <span>{post.restaurant_location}</span>
         </div>
         <div className="date-button">
-          <span>{formatDate(post.created_at)}</span>
+          <span>{formatDate(post.created_at, 'dots')}</span>
           <button
             className="edit-button"
             onClick={() => postEditButtonHandler(post)}

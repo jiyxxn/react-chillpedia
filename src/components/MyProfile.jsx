@@ -1,10 +1,9 @@
-import { useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { UserLoginContext } from '../providers/AuthProvider';
 import { StProfile } from '../styles/myPage.styled';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { userDataValidations } from '../utils/validation/userDataValidations';
+import { userDataValidations } from '../utils/userDataValidations';
 import supabase from '../shared/supabaseClient';
+import { formatDate } from '../utils/formatDate';
 
 const MyProfile = () => {
   const { user } = useContext(UserLoginContext);
@@ -45,13 +44,6 @@ const MyProfile = () => {
     }
   }, [user?.id]);
 
-  // * 날짜 형식을 바꾸는 함수
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const formattedDate = date.toLocaleDateString('en-CA');
-    return formattedDate;
-  };
-
   // * 파일에서 프로필 이미지 선택 함수
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
@@ -73,7 +65,8 @@ const MyProfile = () => {
 
       // 이미 존재하는 이미지가 있다면 삭제
       if (userProfile.image) {
-        const existingFileName = userProfile.image.split('/').at(-1);
+        const imagePath = import.meta.env.VITE_PROFILE_IMAGE_URL_BASE;
+        const existingFileName = userProfile.image.split(imagePath).pop();
         const { error: deleteError } = await supabase.storage
           .from('profile-images')
           .remove([existingFileName]);
@@ -221,8 +214,8 @@ const MyProfile = () => {
         </div>
         <ul>
           <li>이메일 : {user.email}</li>
-          <li>가입일 : {formatDate(user.created_at)}</li>
-          <li>최근 접속일 : {formatDate(user.last_sign_in_at)}</li>
+          <li>가입일 : {formatDate(user.created_at, 'hyphen')}</li>
+          <li>최근 접속일 : {formatDate(user.last_sign_in_at, 'hyphen')}</li>
         </ul>
       </div>
     </StProfile>

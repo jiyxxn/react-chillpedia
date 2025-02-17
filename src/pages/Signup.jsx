@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SignupForm from '../components/SignupForm';
 import { toast } from 'react-toastify';
-import { userDataValidations } from '../utils/validation/userDataValidations';
+import { userDataValidations } from '../utils/userDataValidations';
 
 const Signup = () => {
   const navigate = useNavigate();

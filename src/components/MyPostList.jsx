@@ -12,17 +12,16 @@ const MyPostList = () => {
 
   useEffect(() => {
     // * 내 게시물 리스트를 가져오는 함수
-    const getAllPosts = async () => {
-      return await supabase
-        .from('posts')
-        .select('*')
-        .eq('writer_id', user.id)
-        .order('created_at', { ascending: false });
-    };
     const fetchPosts = async () => {
       try {
-        const data = await getAllPosts();
-        setMyPosts(data.data);
+        const { data, error } = await supabase
+          .from('posts')
+          .select('*')
+          .eq('writer_id', user.id)
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+        setMyPosts(data);
       } catch (error) {
         alert('게시물을 가져오는데 실패했습니다.');
         console.log('게시물 fetch 오류', error);
@@ -35,7 +34,7 @@ const MyPostList = () => {
   }, [user?.id]);
 
   // * 수정 버튼 클릭 핸들러
-  const postEditButtonHandler = () => {
+  const postEditButtonHandler = (post) => {
     navigate(`/post-write/${post.id}`);
   };
 
@@ -50,7 +49,8 @@ const MyPostList = () => {
 
   // * 이미지 삭제 함수
   const deleteImage = async (imageUrl) => {
-    const imageName = imageUrl.split('/').slice(-2).join('/');
+    const imagePath = import.meta.env.VITE_IMAGE_URL_BASE;
+    const imageName = imageUrl.split(imagePath).pop();
     try {
       const { error } = await supabase.storage
         .from('post-images')
@@ -64,15 +64,15 @@ const MyPostList = () => {
   };
 
   // * 삭제 버튼 클릭 핸들러
-  const postDeleteButtonHandler = (postToDelete) => {
+  const postDeleteButtonHandler = async (postToDelete) => {
     const result = confirm('정말 삭제하시겠습니까?');
     if (!result) {
       return;
     }
 
     try {
-      deletePost(postToDelete.id); // 포스트 삭제
-      deleteImage(postToDelete.image_url); // 이미지 삭제
+      await deletePost(postToDelete.id); // 포스트 삭제
+      await deleteImage(postToDelete.image_url); // 이미지 삭제
     } catch (error) {
       alert('게시물 삭제에 실패했습니다.');
       console.log('게시물 삭제 오류', error);

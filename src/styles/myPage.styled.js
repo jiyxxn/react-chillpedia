@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 export const StProfile = styled.div`
-  width: 700px;
+  min-width: 700px;
   display: flex;
   flex-direction: row;
   border: 1px solid var(--color-black);
   border-radius: 20px;
-  padding: 40px 70px 40px 70px;
+  padding: 40px 70px;
   gap: 50px;
   background-color: var(--color-white);
   box-shadow:
@@ -25,7 +25,7 @@ export const StProfile = styled.div`
       background-color: white;
     }
 
-    input {
+    input[type='file'] {
       display: none;
     }
 

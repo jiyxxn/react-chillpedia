@@ -5,6 +5,7 @@ import { UserLoginContext } from '../providers/AuthProvider';
 import styled from 'styled-components';
 import supabase from '../shared/supabaseClient';
 import { locationList } from '../shared/locationList';
+import { formatDate } from '../utils/formatDate';
 
 const defaultProfileImage = 'default_profile.png';
 
@@ -43,15 +44,6 @@ const PostList = () => {
     navigate('/post-write');
   };
 
-  const formatDate = (dateStr) => {
-    if (!dateStr) return '';
-    const date = new Date(dateStr);
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    return `${year}.${month}.${day}`;
-  };
-
   const filteredPosts = postList.filter(
     (post) =>
       selectedLocation === '전체' ||
@@ -60,16 +52,6 @@ const PostList = () => {
 
   return (
     <PageContainer>
-      <Header>
-        <Logo>GamChillMat</Logo>
-        <ButtonGroup>
-          <HeaderButton onClick={() => navigate('/mypage')}>
-            마이페이지
-          </HeaderButton>
-          <HeaderButton onClick={() => navigate('/login')}>로그인</HeaderButton>
-        </ButtonGroup>
-      </Header>
-
       <Context>
         <SelectWrapper>
           <Select
@@ -119,7 +101,9 @@ const PostList = () => {
                           {post.restaurant_location}
                         </LocationOverlay>
                       </div>
-                      <PostDate>{formatDate(post.created_at)}</PostDate>
+                      <PostDate>
+                        {formatDate(post.created_at, 'hyphen')}
+                      </PostDate>
                     </RestaurantInfo>
                   </PostContent>
                 </PostCard>
@@ -138,12 +122,12 @@ export default PostList;
 // 💄 Styled Components
 
 const PageContainer = styled.div`
-  width: 1920px;
-  min-height: 1080px;
+  width: 100%;
+  min-height: 100vh;
   margin: 0 auto;
   background-color: #faf6ea;
   display: flex;
-  flex-direction: column;
+  padding: 200px 0;
 `;
 
 const Header = styled.header`

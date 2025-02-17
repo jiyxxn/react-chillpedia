@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import FoodCategoryTag from "./components/FoodCategoryTag";
+import FoodCategoryTag from "./FoodCategoryTag";
 import { UserLoginContext } from "../providers/AuthProvider";
 import styled from "styled-components";
-import { locationList } from "../components/locationList";
 import supabase from "../shared/supabaseClient";
+import { locationList } from "../shared/locationList";
 
 const defaultProfileImage = "default_profile.png";
 

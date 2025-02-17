@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import FoodCategoryTag from "../components/FoodCategoryTag";
+import FoodCategoryTag from "./components/FoodCategoryTag";
 import { UserLoginContext } from "../providers/AuthProvider";
 import styled from "styled-components";
 import { locationList } from "../components/locationList";
@@ -29,14 +29,12 @@ const PostList = () => {
     getPosts();
   }, []);
 
-  console.log (postList);
-
   const handleLocationChange = (e) => {
     setSelectedLocation(e.target.value);
   };
 
   const handlePostClick = (id) => {
-    navigate(`/post-detail?id=${id}`);
+    navigate(`/post-detail/${id}`);
   };
 
   const handleWriteClick = (e) => {
@@ -46,7 +44,6 @@ const PostList = () => {
 
   const formatDate = (dateStr) => {
     if (!dateStr) return "";
-    console.log(dateStr);
     const date = new Date(dateStr);
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, "0");

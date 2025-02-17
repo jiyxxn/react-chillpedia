@@ -1,10 +1,12 @@
 import styled, { css } from 'styled-components';
-import { foodTypeList } from '../components/Category';
+import { foodTypeList } from '../components/category';
 import { useState } from 'react';
 import { HandleSelectBox } from '../components/HandleSelectBox';
 import { locationList } from '../components/locationList';
 import supabase from '../shared/supabaseClient';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+// import { UserLoginContext } from '../providers/AuthProvider';
 
 const priceRange = {
   UNDERTEN: '10,000원 이하',
@@ -16,11 +18,18 @@ const priceRange = {
 };
 const priceRangeList = Object.entries(priceRange);
 
-const PostWrite = ({ postId }) => {
+const PostWrite = () => {
+  const location = useLocation();
+  const { postId } = location.state || {};
   const navigate = useNavigate();
   const [imageSrc, setImageSrc] = useState(null);
   const defaultImg =
     'data:image/png;base64,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';
+  const [oldPostData, setOldPostData] = useState({});
+  const [oldImageName, setOldImageName] = useState('');
+  const [imageName, setImageName] = useState('');
+  // const user = useContext(UserLoginContext);
+
   const [post, setPost] = useState({
     image_url: '',
     restaurant_name: '',
@@ -32,12 +41,37 @@ const PostWrite = ({ postId }) => {
     content: '',
   });
 
-  // 각 StInput box의 onChange에 연결된 함수
+  // 수정 버튼 onClick으로 들어왔을 때 작성된 post 정보 불러와서 화면에 뿌리기
+  useEffect(() => {
+    if (postId) {
+      const getPostAndRender = async () => {
+        try {
+          const { data: postData, error } = await supabase
+            .from('posts')
+            .select('*')
+            .eq('id', postId);
+          setPost(postData[0]);
+          setOldPostData(postData[0]);
+          setImageSrc(postData[0].image_url);
+          setOldImageName(
+            postData[0].image_url.split('/').slice(8, 10).join('/'),
+          );
+        } catch (error) {
+          console.error('error', error);
+        }
+      };
+      getPostAndRender();
+    }
+  }, []);
+
+  // 각 StInput box 변동 생길 때마다 post 업데이트
   const handleChange = (e) => {
     let { name, value } = e.target;
 
     if (name === 'image_url') {
       value = e.target.files[0];
+      setImageName(value.name);
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setImageSrc(reader.result);
@@ -64,35 +98,94 @@ const PostWrite = ({ postId }) => {
     return true;
   };
 
+  // 이미지 업로드
+  const uploadImage = async () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { data, error } = await supabase.storage
+          .from('post-images')
+          .upload(`public/${post.image_url.name}`, post.image_url);
+
+        if (error) {
+          console.error('error', error);
+          return reject(error);
+        }
+        resolve(data);
+      } catch (error) {
+        console.error('error', error);
+        reject(error);
+      }
+      return resolve;
+    });
+  };
+
+  // 이미지 삭제
+  const deleteImage = async () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { data, error } = await supabase.storage
+          .from('post-images')
+          .remove([oldImageName]);
+
+        if (error) {
+          console.error('error', error);
+          return reject(error);
+        }
+        resolve(data);
+      } catch (error) {
+        console.error('error', error);
+        reject(error);
+      }
+      return resolve;
+    });
+  };
+
   // 업로드 버튼 누르면 사진은 supabase bucket에, 올라간 사진 url과 나머지 모든 값은 posts table에 저장
   const handleUpload = async () => {
     if (!isItFilled()) {
       return alert('모든 박스를 채워주세요');
     }
 
-    await supabase.storage
-      .from('post-images')
-      .upload(`public/${post.image_url.name}`, post.image_url);
-
-    try {
-      const response = await supabase.from('posts').insert([
-        {
-          image_url: `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/sign/post-images/public/${post.image_url}?token=${import.meta.env.VITE_SUPABASE_KEY}`,
-          restaurant_name: post.restaurant_name,
-          restaurant_address: post.restaurant_address,
-          restaurant_location: post.restaurant_location,
-          recommended_menu: post.recommended_menu,
-          price_range: post.price_range,
-          category: post.category,
-          content: post.content,
-          // writer_id: user_id,
-        },
-      ]);
-      alert('성공적으로 업로드 되었습니다!');
-      navigate(`/`);
-    } catch (error) {
-      return console.error('error:', error.message);
+    // 수정할 때 이미지가 바뀌는 경우 기존에 업로드된 이미지 삭제
+    if (postId && post.image_url !== oldPostData.image_url) {
+      await deleteImage().catch((err) => console.error('이미지 삭제 실패!'));
     }
+
+    if (post.image_url !== oldPostData.image_url || !postId) {
+      await uploadImage().catch((err) => console.error('이미지 업로드 실패!'));
+    }
+
+    const uploadDatas = {
+      image_url: `${import.meta.env.VITE_SUPABASE_URL}${import.meta.env.VITE_IMAGE_URL_BASE}${imageName}`,
+      restaurant_name: post.restaurant_name,
+      restaurant_address: post.restaurant_address,
+      restaurant_location: post.restaurant_location,
+      recommended_menu: post.recommended_menu,
+      price_range: post.price_range,
+      category: post.category,
+      content: post.content,
+      writer_id: user.id,
+    };
+
+    if (!postId) {
+      try {
+        await supabase.from('posts').insert([uploadDatas]);
+        alert('성공적으로 업로드 되었습니다!');
+      } catch (error) {
+        return console.error('error:', error.message);
+      }
+    } else {
+      try {
+        const { error } = await supabase
+          .from('posts')
+          .update(uploadDatas)
+          .eq('id', postId);
+        alert('성공적으로 수정 되었습니다!');
+      } catch (error) {
+        return console.error('error', error.message);
+      }
+    }
+    navigate(`/`);
   };
 
   return (

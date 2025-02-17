@@ -55,6 +55,7 @@ export const StDetailBox = styled.div`
     align-items: center;
     justify-content: space-between;
     margin: 30px 0;
+    gap: 10px;
   }
   .detail-left span {
     font-size: 18px;

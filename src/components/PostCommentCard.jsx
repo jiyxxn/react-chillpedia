@@ -166,50 +166,54 @@ const PostComment = ({ postId }) => {
           </button>
         </div>
       )}
-      <ul>
-        {comments?.map((comment) => (
-          <li key={comment.id}>
-            <div className="commentTopRow">
-              <p>
-                <img src={comment.profiles.image} alt="프로필 이미지" />
-                <span>{comment.profiles.nickname}</span>
-              </p>
-              <div>
-                {comment.writer_id === user.id && (
-                  <>
-                    <button
-                      type="button"
-                      data-type="modify"
-                      onClick={(e) => {
-                        onToggleUpdateComment(e, comment.id, comment.content);
-                      }}
-                    >
-                      수정
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => onDeleteComment(comment.id)}
-                    >
-                      삭제
-                    </button>
-                  </>
+      {comments.length === 0 ? (
+        <p className="noComment">작성된 댓글이 없습니다.</p>
+      ) : (
+        <ul>
+          {comments.map((comment) => (
+            <li key={comment.id}>
+              <div className="commentTopRow">
+                <p>
+                  <img src={comment.profiles.image} alt="프로필 이미지" />
+                  <span>{comment.profiles.nickname}</span>
+                </p>
+                <div>
+                  {isLogin && comment.writer_id === user.id && (
+                    <>
+                      <button
+                        type="button"
+                        data-type="modify"
+                        onClick={(e) => {
+                          onToggleUpdateComment(e, comment.id, comment.content);
+                        }}
+                      >
+                        수정
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => onDeleteComment(comment.id)}
+                      >
+                        삭제
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+              <div className="commentBottomRow">
+                {isCommentUpdating[comment.id] ? (
+                  <input
+                    type="text"
+                    value={commentUpdateValue}
+                    onChange={(e) => setCommentUpdateValue(e.target.value)}
+                  ></input>
+                ) : (
+                  <p>{comment.content}</p>
                 )}
               </div>
-            </div>
-            <div className="commentBottomRow">
-              {isCommentUpdating[comment.id] ? (
-                <input
-                  type="text"
-                  value={commentUpdateValue}
-                  onChange={(e) => setCommentUpdateValue(e.target.value)}
-                ></input>
-              ) : (
-                <p>{comment.content}</p>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      )}
     </StCommentSection>
   );
 };

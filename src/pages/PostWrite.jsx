@@ -81,6 +81,10 @@ const PostWrite = () => {
         setImageSrc(reader.result);
       };
       reader.readAsDataURL(value);
+      const fileExt = imageName.split('.').at(-1);
+      const timestamp = Date.now();
+      const fileName = `${timestamp}.${fileExt}`;
+      setImageName(fileName);
     }
     setPost((prev) => ({
       ...prev,
@@ -107,7 +111,7 @@ const PostWrite = () => {
     try {
       const { data, error } = await supabase.storage
         .from('post-images')
-        .upload(`user-uploads/${post.image_url.name}`, post.image_url);
+        .upload(`user-uploads/${imageName}`, post.image_url);
 
       if (error) {
         console.error('Upload error:', error);

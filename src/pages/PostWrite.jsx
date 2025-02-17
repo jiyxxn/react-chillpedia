@@ -68,7 +68,6 @@ const PostWrite = () => {
       getPostAndRender();
     }
   }, []);
-  console.log('oldImageName', oldImageName);
 
   // 각 StInput box 변동 생길 때마다 post 업데이트
   const handleChange = (e) => {

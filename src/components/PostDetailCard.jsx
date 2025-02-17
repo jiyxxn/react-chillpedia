@@ -1,4 +1,3 @@
-import FoodCategoryTag from './foodCategoryTag';
 import { StDetailSection, StDetailBox } from '../styles/detailCard.styled';
 
 const PostDetailCard = (post) => {

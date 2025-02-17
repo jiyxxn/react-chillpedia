@@ -2,6 +2,7 @@ import supabase from '../shared/supabaseClient';
 import { useContext, useState, useEffect } from 'react';
 import { UserLoginContext } from '../providers/AuthProvider';
 import { StCommentSection } from '../styles/detailCard.styled';
+import { toast } from 'react-toastify';
 
 const PostComment = ({ postId }) => {
   const { isLogin, user } = useContext(UserLoginContext);
@@ -58,6 +59,7 @@ const PostComment = ({ postId }) => {
 
     setComments([...comments, insertedCommentData]);
     setCommentInputValue('');
+    toast.success('댓글이 등록되었습니다.');
   };
 
   /**
@@ -86,6 +88,8 @@ const PostComment = ({ postId }) => {
     setComments((prevComments) =>
       prevComments.filter((comment) => comment.id !== commentId),
     );
+
+    toast.success('댓글이 삭제되었습니다.');
   };
 
   /**
@@ -98,7 +102,7 @@ const PostComment = ({ postId }) => {
     const { data: updatedComment, error } = await supabase
       .from('comments')
       .update({
-        comments: commentUpdateValue, // 입력된 수정 내용 반영
+        content: commentUpdateValue, // 입력된 수정 내용 반영
       })
       .eq('id', commentId) // 특정 댓글 선택
       .select('* , profiles(nickname, image)') // 수정된 댓글과 프로필 정보 가져오기
@@ -141,6 +145,7 @@ const PostComment = ({ postId }) => {
       setCommentUpdateValue(''); // 입력 필드 초기화
       e.target.innerText = '수정';
       e.target.setAttribute('data-type', 'modify');
+      toast.success('댓글이 수정되었습니다.');
     }
   };
 

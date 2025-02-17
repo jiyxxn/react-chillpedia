@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
-import { foodTypeList } from '../components/category';
-import { useState, useEffect } from 'react';
+import { foodTypeList } from '../shared/Category';
+import { useState, useEffect, useContext } from 'react';
 import { HandleSelectBox } from '../components/HandleSelectBox';
-import { locationList } from '../components/locationList';
+import { locationList } from '../shared/locationList';
 import supabase from '../shared/supabaseClient';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { UserLoginContext } from '../providers/AuthProvider';
@@ -19,15 +19,15 @@ const priceRangeList = Object.entries(priceRange);
 
 const PostWrite = () => {
   const location = useLocation();
-  const { postId } = location.state || {};
+  const { isLogin, user } = useContext(UserLoginContext);
   const navigate = useNavigate();
   const [imageSrc, setImageSrc] = useState(null);
+  const [imageName, setImageName] = useState('');
   const [oldPostData, setOldPostData] = useState({});
   const [oldImageName, setOldImageName] = useState('');
-  const [imageName, setImageName] = useState('');
+  const { postId } = location.state || {};
   const POST_DEFAULT_IMAGE = '/public/postDefaultImage.png';
   const img = import.meta.env.VITE_IMAGE_URL_BASE;
-  const { isLogin, user } = useContext(UserLoginContext);
 
   useEffect(() => {
     if (!isLogin) {
@@ -191,14 +191,17 @@ const PostWrite = () => {
     <StContainer>
       <StDiv>
         <StForm>
-          <div>
+          <div className="imageArea">
             <StImg src={imageSrc ? imageSrc : POST_DEFAULT_IMAGE} />
-            <StInput
-              type="file"
-              accept="image/*"
-              name="image_url"
-              onChange={handleChange}
-            />
+            <label>
+              이미지 추가
+              <input
+                type="file"
+                accept="image/*"
+                name="image_url"
+                onChange={handleChange}
+              />
+            </label>
           </div>
           <StInputsArea>
             <StLabel>
@@ -276,23 +279,22 @@ const PostWrite = () => {
 
 const StContainer = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   background-color: var(--color-white);
   display: flex;
   justify-content: center;
-  display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 100px 0;
+  gap: 52px;
 `;
 
 const StDiv = styled.div`
   width: 1100px;
-  height: 902px;
+  box-sizing: border-box;
 `;
 
 const StForm = styled.div`
-  width: 1100px;
-  height: 770px;
   border: 1px solid var(--color-gray);
   border-radius: 20px;
   display: flex;
@@ -300,37 +302,64 @@ const StForm = styled.div`
   align-items: center;
   flex-direction: row;
   gap: 54px;
+  padding: 50px 70px;
+
+  .imageArea {
+    width: 90%;
+    max-width: 390px;
+  }
+
+  .imageArea label {
+    display: block;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 50px;
+    border: 1px solid var(--color-gray);
+    background-color: var(--color-white);
+    margin-top: 20px;
+    cursor: pointer;
+  }
+
+  input[type='file'] {
+    display: none;
+  }
 `;
 
 const StImg = styled.img`
-  width: 390px;
-  height: 472px;
+  width: 100%;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
 `;
 
 const StInputsArea = styled.div`
-  width: 474px;
-  width: 636px;
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 20px;
 `;
 
 const StLabel = styled.label`
-  width: 474px;
-  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
-export const StInputandSelect = css`
-  width: 380px;
+export const StInputBox = css`
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 400px;
   height: 50px;
   border-radius: 50px;
   border: 1px solid var(--color-gray);
   background-color: var(--color-white);
+  padding: 0 20px;
 `;
 
 const StInput = styled.input`
-  ${StInputandSelect}
+  ${StInputBox}
 `;
 
 const StButton = styled.button`
@@ -338,6 +367,8 @@ const StButton = styled.button`
   height: 80px;
   background-color: var(--color-beige);
   border-radius: 20px;
+  font-size: 24px;
+  font-weight: 600;
   border: 1px solid var(--color-gray);
 `;
 export default PostWrite;

@@ -21,8 +21,13 @@ export const AuthProvider = ({ children }) => {
     });
   }, []);
 
+  const logout = async () => {
+    await supabase.auth.signOut();
+    setIsLogin(false);
+  };
+
   return (
-    <UserLoginContext.Provider value={{ isLogin, user }}>
+    <UserLoginContext.Provider value={{ isLogin, user, logout }}>
       {children}
     </UserLoginContext.Provider>
   );

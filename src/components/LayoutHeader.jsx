@@ -2,11 +2,10 @@ import { useContext } from 'react';
 import styled from 'styled-components';
 import { UserLoginContext } from '../providers/AuthProvider';
 import { Link, useNavigate } from 'react-router-dom';
-import supabase from '../shared/supabaseClient';
 import { toast } from 'react-toastify';
 
 const LayoutHeader = () => {
-  const { isLogin } = useContext(UserLoginContext);
+  const { isLogin, logout } = useContext(UserLoginContext);
   const navigate = useNavigate();
 
   const handleMypageClick = () => {
@@ -20,7 +19,8 @@ const LayoutHeader = () => {
 
   const handleAuthButtonClick = async () => {
     if (isLogin) {
-      await supabase.auth.signOut();
+      await logout();
+      navigate('/');
     } else {
       navigate('/login');
     }

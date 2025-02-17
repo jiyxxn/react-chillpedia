@@ -6,7 +6,7 @@ import { locationList } from '../components/locationList';
 import supabase from '../shared/supabaseClient';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-// import { UserLoginContext } from '../providers/AuthProvider';
+import { UserLoginContext } from '../providers/AuthProvider';
 
 const priceRange = {
   UNDERTEN: '10,000원 이하',
@@ -28,7 +28,7 @@ const PostWrite = () => {
   const [oldPostData, setOldPostData] = useState({});
   const [oldImageName, setOldImageName] = useState('');
   const [imageName, setImageName] = useState('');
-  // const user = useContext(UserLoginContext);
+  const user = useContext(UserLoginContext);
 
   const [post, setPost] = useState({
     image_url: '',

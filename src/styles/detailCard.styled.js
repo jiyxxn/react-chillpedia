@@ -163,4 +163,8 @@ export const StCommentSection = styled.section`
   button + button {
     margin-left: 10px;
   }
+
+  .noComment {
+    text-align: center;
+  }
 `;

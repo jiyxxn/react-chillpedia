@@ -1,18 +1,26 @@
-import { useContext, useEffect } from 'react';
-import { UserLoginContext } from '../providers/AuthProvider';
-import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import MyProfile from '../components/MyProfile';
+import MyPostList from '../components/MyPostList';
 
-const Mypage = () => {
-  const { isLogin } = useContext(UserLoginContext);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!isLogin) {
-      alert('로그아웃 되었습니다.');
-      navigate('/');
-    }
-  }, [isLogin, navigate]);
-  return <div>Mypage</div>;
+const MyPage = () => {
+  return (
+    <StContainer>
+      <MyProfile />
+      <MyPostList />
+    </StContainer>
+  );
 };
 
-export default Mypage;
+export default MyPage;
+
+const StContainer = styled.div`
+  width: 100%;
+  min-width: 1100px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-white);
+  padding: 172px 0;
+  gap: 100px;
+`;

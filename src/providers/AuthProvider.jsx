@@ -14,11 +14,9 @@ export const AuthProvider = ({ children }) => {
       if (session) {
         setIsLogin(true);
         setUser(session.user);
-        console.log('로그인 정보 =>', session.user);
       } else {
         setIsLogin(false);
         setUser(null);
-        console.log('로그인 정보가 없음');
       }
     });
   }, []);

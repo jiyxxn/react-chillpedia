@@ -119,6 +119,7 @@ const StContainer = styled.div`
   justify-content: center;
   background-color: var(--color-white);
   gap: 100px;
+  padding: 250px 0 100px;
 
   h2 {
     text-align: center;

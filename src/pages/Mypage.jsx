@@ -21,6 +21,6 @@ const StContainer = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: var(--color-white);
-  padding: 172px 0;
+  padding: 250px 0 100px;
   gap: 100px;
 `;

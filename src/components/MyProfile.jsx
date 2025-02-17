@@ -62,6 +62,7 @@ const MyProfile = () => {
     setNewImage(file);
   };
 
+  // TODO - 이미지와 닉네임 정보를 auth.user 메타데이터로 업데이트
   // * 이미지를 supabase storage에 저장
   const updateProfileImage = async (file) => {
     try {
@@ -180,14 +181,25 @@ const MyProfile = () => {
           alt="프로필 이미지"
         />
         {isEditProfileMode ? (
-          <input
-            type="file"
-            onChange={handleFileSelect}
-            accept=".jpg, .jpeg, .png"
-            multiple={false}
-          />
+          <>
+            <input
+              type="file"
+              id="selectImage"
+              onChange={handleFileSelect}
+              accept=".jpg, .jpeg, .png"
+              multiple={false}
+            />
+            <label htmlFor="selectImage" className="edit-file-button">
+              파일 첨부
+            </label>
+          </>
         ) : (
-          <button onClick={() => setEditProfileMode(true)}>프로필 수정</button>
+          <button
+            className="edit-file-button"
+            onClick={() => setEditProfileMode(true)}
+          >
+            프로필 수정
+          </button>
         )}
       </div>
       <div className="user-info">

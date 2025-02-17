@@ -7,6 +7,7 @@ import supabase from '../shared/supabaseClient';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 // import { UserLoginContext } from '../providers/AuthProvider';
+// 로그인
 
 const priceRange = {
   UNDERTEN: '10,000원 이하',

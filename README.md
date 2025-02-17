@@ -14,7 +14,7 @@
 - 지역별, 음식 종류별 카테고리 분류를 통한 효율적인 정보 탐색
 
 > - **작업 기간** : 2025. 02. 12 ~ 2025. 02. 18
-> - **배포 주소** : https://react-chillpedia-oqtn.vercel.app/
+> - **배포 주소** : https://react-chillpedia.vercel.app/
 
 <br />
 

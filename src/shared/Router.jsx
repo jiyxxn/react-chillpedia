@@ -1,14 +1,16 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from '../pages/Home';
-import MyPage from '../pages/MyPage';
+import MyPage from '../pages/Mypage';
 import PostWrite from '../pages/PostWrite';
 import PostDetail from '../pages/PostDetail';
 import Signup from '../pages/Signup';
 import Login from '../pages/Login';
+import LayoutHeader from '../components/LayoutHeader';
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <LayoutHeader />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>

@@ -20,6 +20,7 @@ const LayoutHeader = () => {
   const handleAuthButtonClick = async () => {
     if (isLogin) {
       await logout();
+      toast.success('로그아웃 되었습니다.');
       navigate('/');
     } else {
       navigate('/login');

@@ -4,6 +4,7 @@ import { StProfile } from '../styles/myPage.styled';
 import { userDataValidations } from '../utils/userDataValidations';
 import supabase from '../shared/supabaseClient';
 import { formatDate } from '../utils/formatDate';
+import { toast } from 'react-toastify';
 
 const MyProfile = () => {
   const { user } = useContext(UserLoginContext);
@@ -29,14 +30,14 @@ const MyProfile = () => {
         try {
           const { data, error } = await getMyProfile(user.id);
           if (error) {
-            alert('내 정보를 불러오는 데 실패했습니다.');
+            toast.warning('내 정보를 불러오는 데 실패했습니다.');
             console.log('내 정보 불러오기 에러 :', error);
           }
           // 현재 프로필 및 이미지 세팅
           setUserProfile(data);
           setPreviewImage(data.image);
         } catch (error) {
-          alert('내 정보를 불러오는 데 실패했습니다.');
+          toast.warning('내 정보를 불러오는 데 실패했습니다.');
           console.log('내 정보 불러오기 에러 :', error);
         }
       };
@@ -121,7 +122,7 @@ const MyProfile = () => {
     if (newNickname && newNickname !== userProfile.nickname) {
       const errorMessage = await userDataValidations.nickname(newNickname);
       if (errorMessage) {
-        alert(errorMessage);
+        toast.warning(errorMessage);
         return;
       }
     }
@@ -130,7 +131,7 @@ const MyProfile = () => {
     if (newNickname && newNickname !== userProfile.nickname) {
       const error = await updateNickname();
       if (error) {
-        alert('닉네임 수정 중 오류가 발생하였습니다.');
+        toast.warning('닉네임 수정 중 오류가 발생하였습니다.');
         console.log('닉네임 수정 중 오류 :', error);
         return;
       }
@@ -146,14 +147,14 @@ const MyProfile = () => {
     if (newImage) {
       const error = await updateProfileImage(newImage);
       if (error) {
-        alert('이미지 업로드 중 오류가 발생하였습니다.');
+        toast.warning('이미지 업로드 중 오류가 발생하였습니다.');
         console.log('이미지 업로드 중 오류 :', error);
         return;
       }
     }
 
     // 수정 완료 후 프로필 편집모드 끄기
-    alert('프로필 수정이 완료되었습니다.');
+    toast.success('프로필 수정이 완료되었습니다.');
     setEditProfileMode(false);
 
     // 선택 이미지, 닉네임 초기화

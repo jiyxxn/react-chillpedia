@@ -84,7 +84,7 @@ const Signup = () => {
             toast.warning(`회원가입 에러 : ${error.code}`);
         }
       } else {
-        alert('회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
+        toast.success('회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
         navigate('/login');
       }
 

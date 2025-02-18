@@ -4,6 +4,7 @@ import { UserLoginContext } from '../providers/AuthProvider';
 import { StMyPost } from '../styles/myPage.styled';
 import supabase from '../shared/supabaseClient';
 import PostPreviewCard from './PostPreviewCard';
+import { toast } from 'react-toastify';
 
 const MyPostList = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const MyPostList = () => {
         if (error) throw error;
         setMyPosts(data);
       } catch (error) {
-        alert('게시물을 가져오는데 실패했습니다.');
+        toast.warning('게시물을 가져오는데 실패했습니다.');
         console.log('게시물 fetch 오류', error);
       }
     };
@@ -74,7 +75,7 @@ const MyPostList = () => {
       await deletePost(postToDelete.id); // 포스트 삭제
       await deleteImage(postToDelete.image_url); // 이미지 삭제
     } catch (error) {
-      alert('게시물 삭제에 실패했습니다.');
+      toast.warning('게시물 삭제에 실패했습니다.');
       console.log('게시물 삭제 오류', error);
       return;
     }

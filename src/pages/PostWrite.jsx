@@ -6,6 +6,7 @@ import { locationList } from '../shared/locationList';
 import supabase from '../shared/supabaseClient';
 import { useNavigate, useParams } from 'react-router-dom';
 import { UserLoginContext } from '../providers/AuthProvider';
+import { toast } from 'react-toastify';
 
 const priceRange = {
   UNDERTEN: '10,000원 이하',
@@ -30,7 +31,7 @@ const PostWrite = () => {
 
   useEffect(() => {
     if (!isLogin) {
-      alert('글쓰기는 로그인해야 가능합니다!');
+      toast.warning('글쓰기는 로그인해야 가능합니다!');
       navigate('/login');
     }
   });
@@ -145,7 +146,7 @@ const PostWrite = () => {
   // 업로드 버튼 누르면 사진은 supabase bucket에, 올라간 사진 url과 나머지 모든 값은 posts table에 저장
   const handleUpload = async () => {
     if (!isItFilled()) {
-      return alert('모든 박스를 채워주세요');
+      return toast.warning('모든 박스를 채워주세요');
     }
 
     // 수정할 때 이미지가 바뀌는 경우 기존에 업로드된 이미지 삭제
@@ -174,7 +175,7 @@ const PostWrite = () => {
     if (!id) {
       try {
         await supabase.from('posts').insert([uploadDatas]);
-        alert('성공적으로 업로드 되었습니다!');
+        toast.success('성공적으로 업로드 되었습니다!');
       } catch (error) {
         return console.error('error:', error.message);
       }
@@ -184,7 +185,7 @@ const PostWrite = () => {
           .from('posts')
           .update(uploadDatas)
           .eq('id', id);
-        alert('성공적으로 수정 되었습니다!');
+        toast.success('성공적으로 수정 되었습니다!');
       } catch (error) {
         return console.error('error', error.message);
       }
